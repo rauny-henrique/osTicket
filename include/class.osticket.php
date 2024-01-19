@@ -566,7 +566,11 @@ class osTicket {
     static function get_client_ip($header='HTTP_X_FORWARDED_FOR') {
 
         // Request IP
-        $ip = $_SERVER['REMOTE_ADDR'];
+	$ip = $_SERVER['HTTP_X_FORWARDED_FOR']; 
+	if (!isset($ip)) 
+	{ 
+	     $ip = $_SERVER['REMOTE_ADDR']; 
+	}
         // Trusted proxies.
         $proxies = self::getTrustedProxies();
         // Return current IP address if header is not set and
